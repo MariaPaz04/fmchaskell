@@ -31,6 +31,10 @@ min _ n = n
 min n _ = n 
 min (S n) (S m) = S(min n m)
 
+gcd :: Nat -> Nat -> Nat
+gcd n O = n 
+gcd n m = gcd m (rem n m)
+
 div :: Nat -> Nat -> (Nat, Nat)
 div n m = (quot n m, rem n m)
 
