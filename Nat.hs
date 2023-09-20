@@ -31,6 +31,9 @@ min _ n = n
 min n _ = n 
 min (S n) (S m) = S(min n m)
 
+div :: Nat -> Nat -> (Nat, Nat)
+div n m = (quot n m, rem n m)
+
 max :: Nat -> Nat -> Nat
 max n _ = n 
 max _ n = n 
