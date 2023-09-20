@@ -35,3 +35,12 @@ max :: Nat -> Nat -> Nat
 max n _ = n 
 max _ n = n 
 max (S n) (S m) = S(max n m)
+
+pred :: Nat -> Nat
+pred O = O
+pred (S n) = n 
+
+-- bonus 
+minus :: Nat -> Nat -> Nat
+minus n O = n 
+minus n (S m) = pred(minus n m)
