@@ -40,6 +40,15 @@ pred :: Nat -> Nat
 pred O = O
 pred (S n) = n 
 
+rem :: Nat -> Nat -> Nat
+rem O n = O
+rem (S m) O = S(rem m O)
+rem m n = rem' m(mult n (quot m n))
+  where
+    rem' :: Nat -> Nat -> Nat
+    rem' (S m) (S n) = rem' m n 
+    rem' m O = m
+
 -- bonus 
 minus :: Nat -> Nat -> Nat
 minus n O = n 
