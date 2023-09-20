@@ -25,3 +25,13 @@ quot m n = quot' m n n
     quot' O m k = O
     quot' m O k = S (quot' m k k)
     quot' (S n) (S m) k = quot' n m k
+
+min :: Nat -> Nat -> Nat
+min _ n = n 
+min n _ = n 
+min (S n) (S m) = S(min n m)
+
+max :: Nat -> Nat -> Nat
+max n _ = n 
+max _ n = n 
+max (S n) (S m) = S(max n m)
