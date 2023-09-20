@@ -60,3 +60,12 @@ rem m n = rem' m(mult n (quot m n))
 minus :: Nat -> Nat -> Nat
 minus n O = n 
 minus n (S m) = pred(minus n m)
+
+fib :: Nat -> Nat
+fib O = O
+fib (S O) = (S O)
+fib (S (S n)) = sum (fib (S n)) (fib n) 
+
+fact :: Nat -> Nat 
+fact O = (S O)
+fact (S n) = mult (S n) (fact n)
