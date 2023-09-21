@@ -27,13 +27,16 @@ quot m n = quot' m n n
     quot' (S n) (S m) k = quot' n m k
 
 min :: Nat -> Nat -> Nat
-min _ n = n 
-min n _ = n 
+min   n = n 
+min n   = n 
 min (S n) (S m) = S(min n m)
 
 gcd :: Nat -> Nat -> Nat
 gcd n O = n 
 gcd n m = gcd m (rem n m)
+
+lcm :: Nat -> Nat -> (Nat, Nat)
+lcm n m = div (mult n m) (gcd n m)
 
 div :: Nat -> Nat -> (Nat, Nat)
 div n m = (quot n m, rem n m)
