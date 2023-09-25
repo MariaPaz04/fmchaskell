@@ -27,8 +27,8 @@ quot m n = quot' m n n
     quot' (S n) (S m) k = quot' n m k
 
 min :: Nat -> Nat -> Nat
-min   n = n 
-min n   = n 
+min _ n = n 
+min n _ = n 
 min (S n) (S m) = S(min n m)
 
 gcd :: Nat -> Nat -> Nat
@@ -72,3 +72,7 @@ fib (S (S n)) = sum (fib (S n)) (fib n)
 fact :: Nat -> Nat 
 fact O = (S O)
 fact (S n) = mult (S n) (fact n)
+
+double :: Nat -> Nat 
+double O = O
+double (S n) = S(S(double n))
