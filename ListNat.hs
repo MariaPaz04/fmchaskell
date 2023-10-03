@@ -1,8 +1,9 @@
 module ListNat where
 
-import Prelude hiding (enumFromTo, length, sum, product, elem, (++),rem, reverse,(+), (*), (^), Bool, True, False)
+import Prelude hiding ((>),take, drop, enumFromTo, length, sum, product, elem, (++),rem, reverse,(+), (*), (^), Bool, True, False)
 import Nat
 import Bool
+import Ordering
 
 type ListNat = [Nat]
 
@@ -67,10 +68,18 @@ expNat m [] = []
 expNat m (n : ns) = (n ^ m):(expNat m ns)
 
 enumFromTo :: Nat -> Nat -> ListNat
-enumFromTo n m
-  | leq n m = n : enumFromTo Sn m
-  | otherwise = []
+enumFromTo m n
+  | m > n = []
+  | otherwise = m : enumFromTo (S m) n
 
 enumTo :: Nat -> ListNat
 enumTo = enumFromTo O
  
+take :: Nat -> ListNat -> ListNat
+take (S m) (n : ns) = n : take m ns
+take _ _ = []
+
+drop :: Nat -> ListNat -> ListNat
+drop _ [] = []
+drop O ns = ns
+drop (S m) (n : ns) = drop m ns
