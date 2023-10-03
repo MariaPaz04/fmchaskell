@@ -3,6 +3,12 @@ module Ordering where
 import Prelude hiding ((<), (>))
 import Nat
 
+compare :: Nat -> Nat -> Ordering
+compare O O = EQ
+compare _ O = GT
+compare O _ = LT
+compare (S n) (S m) = compare n m
+
 (<) :: Nat -> Nat -> Bool
 n < m = compare n m == LT
 
@@ -14,4 +20,3 @@ n >= m = n > m || n == m
 
 (<=) :: Nat -> Nat -> Bool
 n <= m = n < m || n == m
-
