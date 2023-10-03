@@ -1,23 +1,22 @@
 module Nat where
 
-import Prelude hiding (sum, exp, mult, quot, min, gcd, lcm, div, max, pred, rem,  
-  if_then_else, leq, (==), False, True, Bool, ev, od, isMul3, divides)
+import Prelude hiding ((+), (*), (^), quot, min, gcd, lcm, div, max, pred, rem, minus, if_then_else, leq, eq, False, True, Bool, ev, od, isMul3, divides)
 import Bool
 
 data Nat = O | S Nat
-    deriving ( Eq , Show )
+    deriving ( Eq, Show )
 
-sum :: Nat -> Nat -> Nat
-sum n O = n
-sum n (S m) = S(sum n m)
+(+) :: Nat -> Nat -> Nat
+n + O = n
+n + (S m) = S(n + m)
 
-mult :: Nat -> Nat -> Nat
-mult n O = O
-mult n (S m) = sum n (mult n m)
+(*) :: Nat -> Nat -> Nat
+n * O = O
+n * (S m) = (n * m) + n
 
-exp :: Nat -> Nat -> Nat
-exp n O = (S O)
-exp n (S m) = mult n (exp n m)
+(^) :: Nat -> Nat -> Nat
+n ^ O = (S O)
+n ^ (S m) = n * (n ^ m)
 
 quot :: Nat -> Nat -> Nat
 quot m n = quot' m n n 
@@ -29,24 +28,22 @@ quot m n = quot' m n n
     quot' (S n) (S m) k = quot' n m k
 
 min :: Nat -> Nat -> Nat
-min _ n = n 
-min n _ = n 
-min (S n) (S m) = S(min n m)
+min _ _ = O 
+min (S m) (S n) = S (min m n)
 
 gcd :: Nat -> Nat -> Nat
 gcd n O = n 
 gcd n m = gcd m (rem n m)
 
 lcm :: Nat -> Nat -> (Nat, Nat)
-lcm n m = div (mult n m) (gcd n m)
+lcm n m = div (n * m) (gcd n m)
 
 div :: Nat -> Nat -> (Nat, Nat)
 div n m = (quot n m, rem n m)
 
 max :: Nat -> Nat -> Nat
-max n _ = n 
-max _ n = n 
-max (S n) (S m) = S(max n m)
+max _ _ = O 
+max (S n) (S m) = S (max n m)
 
 pred :: Nat -> Nat
 pred O = O
@@ -55,7 +52,7 @@ pred (S n) = n
 rem :: Nat -> Nat -> Nat
 rem O n = O
 rem (S m) O = S(rem m O)
-rem m n = rem' m(mult n (quot m n))
+rem m n = rem' m(n * (quot m n))
   where
     rem' :: Nat -> Nat -> Nat
     rem' (S m) (S n) = rem' m n 
@@ -69,11 +66,11 @@ minus n (S m) = minus n m
 fib :: Nat -> Nat
 fib O = O
 fib (S O) = (S O)
-fib (S (S n)) = sum (fib (S n)) (fib n) 
+fib (S (S n)) = (fib (S n)) + (fib n) 
 
 fact :: Nat -> Nat 
 fact O = (S O)
-fact (S n) = mult (S n) (fact n)
+fact (S n) = (S n) * (fact n)
 
 double :: Nat -> Nat 
 double O = O
@@ -83,10 +80,10 @@ if_then_else :: Bool -> Nat -> Nat -> Nat
 if_then_else True n _ = n
 if_then_else False _ m = m
 
-(==) :: Nat-> Nat -> Bool
-O == O = True
-(S n) == (S m) = n == m
-_ == _ = False
+eq :: Nat-> Nat -> Bool
+eq O O = True
+eq (S n) (S m) = eq n m
+eq _ _ = False
 
 leq :: Nat -> Nat -> Bool
 leq O _ = True
@@ -116,4 +113,4 @@ isZero _ = False
 divides ::  Nat -> Nat -> Bool
 divides O O = True
 divides O (S n) = False
-divides m n = (rem m n == O)
+divides m n = eq (rem m n) O
