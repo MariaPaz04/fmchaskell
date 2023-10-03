@@ -1,7 +1,8 @@
 module ListNat where
 
-import Prelude hiding (ev, (<=), (>), last, init, max, maximum, minimum, min, drop, take, enumFromTo, (^), reverse, (++), (*), product, (+), sum, length, elem)
+import Prelude hiding (enumFromTo, length, sum, product, elem, (++),rem, reverse,(+), (*), (^), Bool, True, False)
 import Nat
+import Bool
 
 type ListNat = [Nat]
 
@@ -31,16 +32,45 @@ reverse (n : ns) = (reverse ns) ++ [n]
 
 allEven :: ListNat -> Bool
 allEven [] = True
-allEven (n : ns) = ev n && allEven ns
- where ev :: Nat -> Bool
-       ev O = True
-       ev (S O) = False
-       ev (S (S n)) = ev n
+allEven (n : ns) = if_then_else_2 (ev n) (allEven ns) False
 
 anyEven :: ListNat -> Bool
 anyEven [] = False
-anyEven (n : ns) = ev n || allEven ns
- where ev :: Nat -> Bool
-       ev O = True
-       ev (S O) = False
-       ev (S (S n)) = ev n
+anyEven (n : ns) = if_then_else_2 (ev n) True (anyEven ns)
+
+allOdd :: ListNat -> Bool
+allOdd [] = True
+allOdd (n : ns) = if_then_else_2 (od n) (allOdd ns) False
+
+anyOdd :: ListNat -> Bool
+anyOdd [] = False
+anyOdd (n : ns) = if_then_else_2 (od n) True (anyOdd ns)
+
+allZero :: ListNat -> Bool
+allZero [] = True
+allZero (n : ns) = if_then_else_2 (isZero n) (allZero ns) False
+
+anyZero :: ListNat -> Bool
+anyZero [] = False
+anyZero (n : ns) = if_then_else_2 (isZero n) True (anyZero ns)
+
+addNat :: Nat -> ListNat -> ListNat
+addNat m [] = []
+addNat m (n : ns) = (m + n):(addNat m ns)
+
+multNat :: Nat -> ListNat -> ListNat
+multNat m [] = []
+multNat m (n : ns) = (m * n):(multNat m ns)
+
+expNat :: Nat -> ListNat -> ListNat
+expNat m [] = []
+expNat m (n : ns) = (n ^ m):(expNat m ns)
+
+enumFromTo :: Nat -> Nat -> ListNat
+enumFromTo n m
+  | leq n m = n : enumFromTo Sn m
+  | otherwise = []
+
+enumTo :: Nat -> ListNat
+enumTo = enumFromTo O
+ 
