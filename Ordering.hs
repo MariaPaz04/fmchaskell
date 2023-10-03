@@ -1,6 +1,7 @@
 module Ordering where
 
 import Prelude hiding ((<), (>), compare)
+import Nat
 
 (<) :: Nat -> Nat -> Bool
 n < m = compare n m == LT
