@@ -1,7 +1,7 @@
 module ListNat where
+
+import Prelude hiding(Nil, length, sum, product)
 import Nat
-import Bool
 
 data ListNat = Empty | Cons Nat ListNat
     deriving ( Eq , Show )
-
