@@ -4,7 +4,7 @@ import Prelude hiding ((+), (*), (^), quot, min, gcd, lcm, div, max, pred, rem, 
 import Bool
 
 data Nat = O | S Nat
-    deriving ( Eq, Show )
+    deriving (Eq, Show)
 
 (+) :: Nat -> Nat -> Nat
 n + O = n
