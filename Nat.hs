@@ -1,7 +1,7 @@
 module Nat where
 
-import Prelude hiding ((-), last, (<), (>), (>=), (<=), compare, init, isPrefixOf, maximum, minimum, drop, take, enumFromTo, reverse, (++), product, sum, elem, length, (+), (*), (^), quot, min, gcd, lcm, div, max, pred, rem)
-import Data
+import Prelude hiding (sum, exp, mult, quot, min, gcd, lcm, div, max, pred, rem,  
+  if_then_else, leq, (==), False, True, Bool, ev, od, isMul3, divides)
 import Bool
 
 data Nat = O | S Nat
@@ -78,3 +78,42 @@ fact (S n) = mult (S n) (fact n)
 double :: Nat -> Nat 
 double O = O
 double (S n) = S(S(double n))
+
+if_then_else :: Bool -> Nat -> Nat -> Nat
+if_then_else True n _ = n
+if_then_else False _ m = m
+
+(==) :: Nat-> Nat -> Bool
+O == O = True
+(S n) == (S m) = n == m
+_ == _ = False
+
+leq :: Nat -> Nat -> Bool
+leq O _ = True
+leq _ O = False
+leq (S n) (S m) = leq n m
+
+ev :: Nat -> Bool
+ev O = True
+ev (S O) = False
+ev (S (S n)) = ev n
+
+od :: Nat -> Bool
+od O = False
+od (S O) = True 
+od (S (S n)) = od n
+
+isMul3 :: Nat -> Bool
+isMul3 O = True
+isMul3 (S O) = False
+isMul3 (S (S O)) = False
+isMul3 (S (S (S n))) = isMul3 n
+
+isZero :: Nat -> Bool
+isZero O = True
+isZero _ = False
+
+divides ::  Nat -> Nat -> Bool
+divides O O = True
+divides O (S n) = False
+divides m n = (rem m n == O)
