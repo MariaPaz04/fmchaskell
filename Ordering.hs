@@ -1,6 +1,6 @@
 module Ordering where
 
-import Prelude hiding ((<), (>))
+import Prelude hiding ((<), (>), compare)
 import Nat
 
 compare :: Nat -> Nat -> Ordering
