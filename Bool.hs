@@ -1,6 +1,4 @@
 module Bool where
-import Nat
-import ListNat
-
-data ListNat = Empty | Cons Nat ListNat
+data Bool = False | True
     deriving ( Eq , Show )
+
