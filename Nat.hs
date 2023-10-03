@@ -1,6 +1,8 @@
 module Nat where
 
-import Prelude hiding (sum, mult, exp, quot, min, gcd, lcm, div, max, pred, rem)
+import Prelude hiding ((-), last, (<), (>), (>=), (<=), compare, init, isPrefixOf, maximum, minimum, drop, take, enumFromTo, reverse, (++), product, sum, elem, length, (+), (*), (^), quot, min, gcd, lcm, div, max, pred, rem)
+import Data
+import Bool
 
 data Nat = O | S Nat
     deriving ( Eq , Show )
@@ -62,7 +64,7 @@ rem m n = rem' m(mult n (quot m n))
 -- bonus 
 minus :: Nat -> Nat -> Nat
 minus n O = n 
-minus n (S m) = pred(minus n m)
+minus n (S m) = minus n m
 
 fib :: Nat -> Nat
 fib O = O
