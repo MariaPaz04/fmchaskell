@@ -1,6 +1,6 @@
 module ListNat where
 
-import Prelude hiding ((>),take, drop, enumFromTo, length, sum, product, elem, (++),rem, reverse,(+), (*), (^), Bool, True, False)
+import Prelude hiding (od, (<=),(>),take, drop, enumFromTo, length, sum, product, elem, (++),rem, reverse,(+), (*), (^), Bool, True, False)
 import Nat
 import Bool
 import Ordering
@@ -99,3 +99,19 @@ pwAdd _ _ = []
 pwMult :: ListNat -> ListNat -> ListNat
 pwMult (n : ns) (m : ms) = (n * m): pwMult ns ms
 pwMult _ _ = []
+
+isSorted :: ListNat -> Bool
+isSorted (n : (m : ms)) = if (n <= m) then (isSorted (m : ms)) else False
+isSorted _ = True
+
+if_then_else_3 :: Bool -> ListNat -> ListNat -> ListNat
+if_then_else_3 True n _ = n
+if_then_else_3 False _ m = m
+
+filterOdd :: ListNat -> ListNat
+filterOdd [] = []
+filterOdd (n : ns) = if_then_else_3 (od n) (n : filterOdd ns) (filterOdd ns)
+
+filterEven :: ListNat -> ListNat
+filterEven [] = []
+filterEven (n : ns) = if_then_else_3 (ev n) (n : filterEven ns) (filterEven ns)
