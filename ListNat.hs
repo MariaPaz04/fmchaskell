@@ -1,6 +1,6 @@
 module ListNat where
 
-import Prelude hiding (min, max,maximum, minimum,(<=),(>),take, drop, enumFromTo, length, sum, product, elem, (++),rem, reverse,(+), (*), (^))
+import Prelude hiding (tail,min, max,maximum, minimum,(<=),(>),take, drop, enumFromTo, length, sum, product, elem, (++),rem, reverse,(+), (*), (^))
 import Nat
 import Ordering
 
@@ -129,3 +129,21 @@ isPrefixOf :: ListNat -> ListNat -> Bool
 isPrefixOf [] _ = True
 isPrefixOf (n : ns) (m : ms) = n == m && isPrefixOf ns ms
 isPrefixOf _ _ = False
+
+mix :: ListNat -> ListNat -> ListNat
+mix [] ms = ms
+mix ns [] = ns
+mix (n : ns) (m : ms) = n : (m : mix ns ms)
+
+intersperse :: Nat -> ListNat -> ListNat
+intersperse n [] = []
+intersperse n [m] =  [m]
+intersperse n (m : ms) = m : (n : intersperse n ms)
+
+head :: ListNat -> Nat
+head [] = error "Empty list has no head."
+head (n : _) = n
+
+tail :: ListNat -> ListNat
+tail [] =  error "Empty list has no tail."
+tail (_ : ns) = ns
