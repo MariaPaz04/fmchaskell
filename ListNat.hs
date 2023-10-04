@@ -1,6 +1,6 @@
 module ListNat where
 
-import Prelude hiding (tail,min, max,maximum, minimum,(<=),(>),take, drop, enumFromTo, length, sum, product, elem, (++),rem, reverse,(+), (*), (^))
+import Prelude hiding (last,init,tail,min, max,maximum, minimum,(<=),(>),take, drop, enumFromTo, length, sum, product, elem, (++),rem, reverse,(+), (*), (^))
 import Nat
 import Ordering
 
@@ -147,3 +147,13 @@ head (n : _) = n
 tail :: ListNat -> ListNat
 tail [] =  error "Empty list has no tail."
 tail (_ : ns) = ns
+
+init :: ListNat -> ListNat
+init [] = error "Empty list has no init."
+init [_] = []
+init (n : ns) = n : init ns 
+
+last :: ListNat -> Nat
+last [] = error "Empty list has no init."
+last [n] = n
+last (_ : ns) = last ns
