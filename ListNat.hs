@@ -20,7 +20,7 @@ sum [] = O
 sum (n : ns) = n + sum ns
 
 product :: ListNat -> Nat
-product [] = O
+product [] = (S O)
 product (n : ns) = n * product ns
 
 (++) :: ListNat -> ListNat -> ListNat
@@ -83,3 +83,19 @@ drop :: Nat -> ListNat -> ListNat
 drop _ [] = []
 drop O ns = ns
 drop (S m) (n : ns) = drop m ns
+
+elemIndices :: Nat -> ListNat -> ListNat
+elemIndices _ [] = []
+elemIndices m (n : ns)
+  |n == m = O : ns'
+  |otherwise = ns'
+    where
+        ns' = addNat (S O) (elemIndices n ns)
+
+pwAdd :: ListNat -> ListNat -> ListNat
+pwAdd (n : ns) (m : ms) = (n + m): pwAdd ns ms
+pwAdd _ _ = []
+
+pwMult :: ListNat -> ListNat -> ListNat
+pwMult (n : ns) (m : ms) = (n * m): pwMult ns ms
+pwMult _ _ = []
