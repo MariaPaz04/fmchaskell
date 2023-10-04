@@ -1,8 +1,7 @@
 module ListNat where
 
-import Prelude hiding (od, (<=),(>),take, drop, enumFromTo, length, sum, product, elem, (++),rem, reverse,(+), (*), (^), Bool, True, False)
+import Prelude hiding (min, max,maximum, minimum,(<=),(>),take, drop, enumFromTo, length, sum, product, elem, (++),rem, reverse,(+), (*), (^))
 import Nat
-import Bool
 import Ordering
 
 type ListNat = [Nat]
@@ -33,27 +32,27 @@ reverse (n : ns) = (reverse ns) ++ [n]
 
 allEven :: ListNat -> Bool
 allEven [] = True
-allEven (n : ns) = if_then_else_2 (ev n) (allEven ns) False
+allEven (n : ns) = ev n && allEven ns
 
 anyEven :: ListNat -> Bool
 anyEven [] = False
-anyEven (n : ns) = if_then_else_2 (ev n) True (anyEven ns)
+anyEven (n : ns) = ev n || anyEven ns
 
 allOdd :: ListNat -> Bool
 allOdd [] = True
-allOdd (n : ns) = if_then_else_2 (od n) (allOdd ns) False
+allOdd (n : ns) = od n && allOdd ns
 
 anyOdd :: ListNat -> Bool
 anyOdd [] = False
-anyOdd (n : ns) = if_then_else_2 (od n) True (anyOdd ns)
+anyOdd (n : ns) = od n || anyOdd ns
 
 allZero :: ListNat -> Bool
 allZero [] = True
-allZero (n : ns) = if_then_else_2 (isZero n) (allZero ns) False
+allZero (n : ns) = isZero n || allZero ns
 
 anyZero :: ListNat -> Bool
 anyZero [] = False
-anyZero (n : ns) = if_then_else_2 (isZero n) True (anyZero ns)
+anyZero (n : ns) = isZero n && anyZero ns
 
 addNat :: Nat -> ListNat -> ListNat
 addNat m [] = []
@@ -110,8 +109,23 @@ if_then_else_3 False _ m = m
 
 filterOdd :: ListNat -> ListNat
 filterOdd [] = []
-filterOdd (n : ns) = if_then_else_3 (od n) (n : filterOdd ns) (filterOdd ns)
+filterOdd (n : ns) = if od n then n : filterOdd ns else filterOdd ns
 
 filterEven :: ListNat -> ListNat
 filterEven [] = []
-filterEven (n : ns) = if_then_else_3 (ev n) (n : filterEven ns) (filterEven ns)
+filterEven (n : ns) = if ev n then n : filterEven ns else filterEven ns
+
+minimum :: ListNat -> Nat
+minimum [] = error "there is no minimum"
+minimum [n] = n
+minimum (n : ns) = min n (minimum ns)
+
+maximum :: ListNat -> Nat
+maximum [] = error "There is no maximum"
+maximum [n] = n
+maximum (n : ns) = max n (maximum ns)
+
+isPrefixOf :: ListNat -> ListNat -> Bool
+isPrefixOf [] _ = True
+isPrefixOf (n : ns) (m : ms) = n == m && isPrefixOf ns ms
+isPrefixOf _ _ = False
