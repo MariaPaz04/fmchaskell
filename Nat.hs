@@ -1,10 +1,7 @@
 module Nat where
 
-import Prelude hiding ((+), (*), (^), quot, min, gcd, lcm, div, max, pred, rem, minus, if_then_else, leq, eq, False, True, Bool, ev, od, isMul3, divides)
-import Bool
-
-data Nat = O | S Nat
-    deriving (Eq, Show)
+import Prelude hiding ((<), (+), (*), (^), quot, min, gcd, lcm, div, max, pred, rem, (-), if_then_else, leq, eq, ev, od, isMul3, divides)
+import Ordering
 
 (+) :: Nat -> Nat -> Nat
 n + O = n
@@ -26,7 +23,7 @@ quot m n = quot' m n n
     quot' O m k = O
     quot' m O k = S (quot' m k k)
     quot' (S n) (S m) k = quot' n m k
-
+  
 min :: Nat -> Nat -> Nat
 min _ _ = O 
 min (S m) (S n) = S (min m n)
@@ -59,9 +56,9 @@ rem m n = rem' m(n * (quot m n))
     rem' m O = m
 
 -- bonus 
-minus :: Nat -> Nat -> Nat
-minus n O = n 
-minus n (S m) = minus n m
+(-) :: Nat -> Nat -> Nat
+(-) n O = n 
+(-) n (S m) =  n - m
 
 fib :: Nat -> Nat
 fib O = O
