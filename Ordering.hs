@@ -1,7 +1,9 @@
 module Ordering where
 
 import Prelude hiding ((<), (>), compare)
-import Nat
+
+data Nat = O | S Nat
+    deriving (Eq, Show)
 
 (<) :: Nat -> Nat -> Bool
 n < m = compare n m == LT
