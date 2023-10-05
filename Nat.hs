@@ -1,6 +1,6 @@
 module Nat where
 
-import Prelude hiding ((<), (+), (*), (^), quot, min, gcd, lcm, div, max, pred, rem, (-), if_then_else, leq, eq, ev, od, isMul3, divides)
+import Prelude hiding ((<=), (<), (+), (*), (^), quot, min, gcd, lcm, div, max, pred, rem, (-), if_then_else, leq, eq, ev, od, isMul3, divides)
 import Ordering
 
 (+) :: Nat -> Nat -> Nat
@@ -16,14 +16,12 @@ n ^ O = (S O)
 n ^ (S m) = n * (n ^ m)
 
 quot :: Nat -> Nat -> Nat
-quot m n = quot' m n n 
-  where
-    quot' :: Nat -> Nat -> Nat -> Nat
-    quot' O O k = S O
-    quot' O m k = O
-    quot' m O k = S (quot' m k k)
-    quot' (S n) (S m) k = quot' n m k
-  
+quot _ O = error "Zero cannot divide anything"
+quot O _ = O
+quot n m --Resolvido no Zulip
+  | m < n      = S $ quot (n - m) m 
+  | otherwise  =     quot (n - m) m
+
 min :: Nat -> Nat -> Nat
 min _ _ = O 
 min (S m) (S n) = S (min m n)
@@ -35,8 +33,14 @@ gcd n m = gcd m (rem n m)
 lcm :: Nat -> Nat -> (Nat, Nat)
 lcm n m = div (n * m) (gcd n m)
 
+--Feita em sala
 div :: Nat -> Nat -> (Nat, Nat)
-div n m = (quot n m, rem n m)
+div _ O = error "Division by zero"
+div n m 
+  | n < m     = (O, n)
+  | otherwise = (q'+ (S O), r')
+      where 
+        (q', r') = div (n - m) m
 
 max :: Nat -> Nat -> Nat
 max _ _ = O 
@@ -48,14 +52,11 @@ pred (S n) = n
 
 rem :: Nat -> Nat -> Nat
 rem O n = O
-rem (S m) O = S(rem m O)
-rem m n = rem' m(n * (quot m n))
-  where
-    rem' :: Nat -> Nat -> Nat
-    rem' (S m) (S n) = rem' m n 
-    rem' m O = m
+rem (S m) O = error "Nothing remainds from Zero"
+rem n m
+   | m < n     = S $ rem (n - m) m
+   | otherwise =     rem (n - m) m
 
--- bonus 
 (-) :: Nat -> Nat -> Nat
 (-) n O = n 
 (-) n (S m) =  n - m
@@ -76,11 +77,6 @@ double (S n) = S(S(double n))
 if_then_else :: Bool -> Nat -> Nat -> Nat
 if_then_else True n _ = n
 if_then_else False _ m = m
-
-eq :: Nat-> Nat -> Bool
-eq O O = True
-eq (S n) (S m) = eq n m
-eq _ _ = False
 
 leq :: Nat -> Nat -> Bool
 leq O _ = True
@@ -110,4 +106,4 @@ isZero _ = False
 divides ::  Nat -> Nat -> Bool
 divides O O = True
 divides O (S n) = False
-divides m n = eq (rem m n) O
+divides m n = (rem m n) == O
