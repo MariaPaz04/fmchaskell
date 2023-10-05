@@ -103,10 +103,6 @@ isSorted :: ListNat -> Bool
 isSorted (n : (m : ms)) = if (n <= m) then (isSorted (m : ms)) else False
 isSorted _ = True
 
-if_then_else_3 :: Bool -> ListNat -> ListNat -> ListNat
-if_then_else_3 True n _ = n
-if_then_else_3 False _ m = m
-
 filterOdd :: ListNat -> ListNat
 filterOdd [] = []
 filterOdd (n : ns) = if od n then n : filterOdd ns else filterOdd ns
