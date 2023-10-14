@@ -48,11 +48,11 @@ anyOdd (n : ns) = od n || anyOdd ns
 
 allZero :: ListNat -> Bool
 allZero [] = True
-allZero (n : ns) = isZero n || allZero ns
+allZero (n : ns) = isZero n && allZero ns
 
 anyZero :: ListNat -> Bool
 anyZero [] = False
-anyZero (n : ns) = isZero n && anyZero ns
+anyZero (n : ns) = isZero n || anyZero ns
 
 addNat :: Nat -> ListNat -> ListNat
 addNat m [] = []
