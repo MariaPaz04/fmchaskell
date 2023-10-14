@@ -46,3 +46,12 @@ dropWhile _ [] = []
 dropWhile p (n : ns)
   | p n = dropWhile p ns
   | otherwise = n : ns
+
+addNat :: Nat -> [Nat] -> [Nat]
+addNat m = map (+ m)
+
+mulNat :: Nat -> [Nat] -> [Nat]
+mulNat m = map (* m)
+
+expNat :: Nat -> [Nat] -> [Nat]
+expNat m = map (^ m)
